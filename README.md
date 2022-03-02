@@ -7,9 +7,11 @@ You can find the full brief for this in the `Docs` directory.
 You must have PHP and Composer installed
 
 Open a terminal in the root directory of the project and run the commands below:  
-`composer install` - This installs any and all dependencies
+`composer install` - This installs any and all dependencies  
 
-`php artisan serve` - This will run the project, which can be accessed from localhost:8000
+Then look in the root directory for env.example, and remove the .example from the filename. So it should now be ".env"  
+`php artisan key:generate` - Generates env data 
+`php artisan serve` - This will run the project, which can be accessed from localhost:8000  
 
 ## Thoughts into decisions and processes
 - Firstly I chose to use Laravel as it's the framework I was most familiar with, and using a framework would allow me to get straight into developing functionality
