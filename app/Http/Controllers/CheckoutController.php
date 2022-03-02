@@ -48,11 +48,6 @@ class CheckoutController extends Controller
                     "Type" => self::QUANTITY_BASED,
                     "SpecialCondition" => 3,
                     "Price" => 50
-                ],
-                [
-                    "Type" => self::PURCHASED_WITH,
-                    "SpecialCondition" => "A",
-                    "Price" => 5,
                 ]
             ]
         ],
@@ -184,6 +179,10 @@ class CheckoutController extends Controller
         foreach ($aItemSpecialOffers as $aTargetSpecialOffer) {
             // Skip if offer cannot be applied
             if (!$this->CheckIfCurrentOfferIsApplicable($aTargetSpecialOffer, $iQuantity)) {
+                $iTotalCost = $this->CalculateCost($iQuantity, $iItemUnitPrice);
+                if ($iLowestTotalCost === 0 || $iTotalCost < $iLowestTotalCost) {
+                    $iLowestTotalCost = $iTotalCost;
+                }
                 continue;
             }
             // Track item quantities used in offer calculations
