@@ -1,64 +1,27 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Supermarket checkout - Programming exercise
+Written in PHP with Laravel by William Icke
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+You can find the full brief for this in the `Docs` directory.
 
-## About Laravel
+## How to run
+You must have PHP installed
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Open a terminal in the root directory of the project and run the commands below:  
+`composer install` - This installs any and all dependencies
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+`php artisan serve` - This will run the project, which can be accessed from localhost:8000
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Thoughts into decisions and processes
+- Firstly I chose to use Laravel as it's the framework I was most familiar with, and using a framework would allow me to get straight into developing functionality
+- Ideally, if this was a real-world project and if I had more time, I would refactor the project into a proper MVC structure. However, to save time I have implemented most of the backend code inside Checkout controller.
+    - With more time I would look at creating Models for SKU units, full with function to fetch all the necessary attributes
+    - I would also implement an abstract model for Special Offers, and have two models that extend from that for the 'Purchase with' and 'Quantity based' offers. This would remove the need to detect which type of offer is present before proceeding.
+- The SKU data is also currently held as a constant in the controller, for the sake of simplicity. Ideally, this would be stored in a database but that is out of scope. While this is simpler and much easier, there are drawbacks, specifically concerning unit testing as we cannot fully control unit test data. This affects what I can unit test, but I've added what I can for now.
+- I have implemented basic unit tests, with more time I would refactor these to be cleaner and easier to read/use
+- The tests implemented including some of the examples from the brief along with some general cases.
+- While the SKU data is fixed as a constant, the calculation of the checkout is not. It will work with whatever SKU data is presented to it, so feel free to alter the constant in the controller
+    - PLEASE NOTE: Altering this constant will cause the unit tests to break, as they will rely on this constant
+    - When calculating an item with multiple special offers it will use recursion where necessary, this is so the lowest total cost can be found across multiple special offers
+- Assumptions made:
+    - One assumption made is that special offers are always better (lowest cost) than the individual unit price
+    - Another is that all prices are integers, no decimals (floats). In a real world scenario this would use floats, but for simplicity this project uses integers
