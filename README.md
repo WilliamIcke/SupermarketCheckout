@@ -12,6 +12,7 @@ Open a terminal in the root directory of the project and run the commands below:
 Then look in the root directory for env.example, and remove the .example from the filename. So it should now be ".env"  
 `php artisan key:generate` - Generates env data 
 `php artisan serve` - This will run the project, which can be accessed from localhost:8000  
+PLEASE NOTE: Your AntiVirus could detect and try to block Server.php after running the above, an exception will need to be made
 
 ## Thoughts into decisions and processes
 - Firstly I chose to use Laravel as it's the framework I was most familiar with, and using a framework would allow me to get straight into developing functionality
