@@ -4,7 +4,7 @@ Written in PHP with Laravel by William Icke
 You can find the full brief for this in the `Docs` directory.
 
 ## How to run
-You must have PHP installed
+You must have PHP and Composer installed
 
 Open a terminal in the root directory of the project and run the commands below:  
 `composer install` - This installs any and all dependencies
